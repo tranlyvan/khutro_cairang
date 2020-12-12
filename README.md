@@ -3,6 +3,7 @@ Bài tập lớn môn Hệ thống thông tin địa lý.
 Hệ thống GIS hỗ trợ quản lý khu trọ tại quận Cái Răng, Cần Thơ.
 
 Thành viên thực hiện:
+
 Trần Lý Văn - M2519034 
 
 Dương Ngọc Thành – M2519028
