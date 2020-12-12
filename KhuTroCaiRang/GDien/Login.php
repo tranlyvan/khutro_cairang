@@ -9,9 +9,8 @@
                 </span>
 
                 <?php
-                    $mess  = $_GET['mess'];
-
-                    if ($mess != NULL) {
+                    if (isset($_GET['mess'])) {
+                        $mess  = $_GET['mess'];
                         echo '<div class="text-center text-danger font-weight-bold p-t-13 p-b-23">'.$mess.'</div>';
                     }
                 ?>

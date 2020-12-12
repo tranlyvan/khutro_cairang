@@ -253,9 +253,8 @@
     <h2>Danh sách khu trọ</h2><hr>
 
     <?php
-        $mess  = $_GET['mess'];
-
-        if ($mess != NULL) {
+        if (isset($_GET['mess'])) {
+            $mess  = $_GET['mess'];
             echo '
             <div id="alert_khutro" class="alert alert-success alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>

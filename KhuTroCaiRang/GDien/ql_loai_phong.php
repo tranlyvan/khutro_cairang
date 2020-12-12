@@ -98,9 +98,8 @@
     <h2>Danh sách loại phòng</h2><hr>
     
     <?php
-        $mess  = $_GET['mess'];
-
-        if ($mess != NULL) {
+        if (isset($_GET['mess'])) {
+            $mess  = $_GET['mess'];
             echo '
             <div class="alert alert-success alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>

@@ -42,6 +42,10 @@
         GROUP BY d.TenPhuong";
 
         $result = mysqli_query($conn, $query);
+        if (!$result) {
+            printf("Error: %s\n", mysqli_error($conn));
+            exit();
+        }
         $phuong = [];
         while ($row = mysqli_fetch_array($result)) {
             $phuong[] = [$row["TenPhuong"], $row["sl_khutro"]];
