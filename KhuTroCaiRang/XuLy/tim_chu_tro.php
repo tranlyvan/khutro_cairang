@@ -20,7 +20,5 @@
     }
 
     echo json_encode($chu_tro);
-
-
     mysqli_close($conn); 
 ?>
