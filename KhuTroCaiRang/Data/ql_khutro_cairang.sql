@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2020 at 06:57 PM
+-- Generation Time: Feb 02, 2021 at 09:37 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.25
 
@@ -480,14 +480,14 @@ INSERT INTO `phong` (`stt`, `maloai`, `id_khu_tro`, `trang_thai`) VALUES
 (39, 'cb', 13, 1),
 (40, 'cb', 13, 2),
 (41, 'cb', 13, 2),
-(42, 'cb', 15, 2),
-(43, 'cb', 15, 2),
-(44, 'cb', 15, 2),
+(42, 'cb', 15, 0),
 (45, 'cb', 16, 2),
 (46, 'cb', 17, 2),
 (47, 'cb', 18, 0),
 (48, 'cb', 19, 2),
-(49, 'cb', 20, 2);
+(49, 'cb', 20, 2),
+(56, 'cb', 10, 0),
+(58, 'cb', 10, 0);
 
 -- --------------------------------------------------------
 
@@ -606,7 +606,7 @@ ALTER TABLE `khu_tro`
 -- AUTO_INCREMENT for table `phong`
 --
 ALTER TABLE `phong`
-  MODIFY `stt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `stt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
