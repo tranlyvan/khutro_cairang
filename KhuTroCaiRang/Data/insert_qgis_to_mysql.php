@@ -15,9 +15,9 @@
             mysqli_set_charset($conn, "utf8_general_ci"); // đọc và ghi dữ liệu dạng utf8
 
             if ($conn->query($insert_text) === TRUE) {
-            echo "New record created successfully";
+                echo "New record created successfully<br>";
             } else {
-            echo "Error: " . $insert_text . "<br>" . $conn->error;
+                echo "Error: <br>" . $conn->error;
             }
 
             $conn->close();
@@ -30,7 +30,14 @@
     $current_shape_id = 0;
 
     // Danh sách theo thứ tự tên các phường trong file csv atrributes xuất ra từ QGis.
-    $ten = ["Ba Láng", "Hưng Phú", "Hưng Thạnh", "Lê Bình", "Phú Thứ", "Tân Phú", "Thường Thạnh"];
+    $ten = array();
+
+    if (($handle = fopen('cairang_attributes.csv', 'r')) !== FALSE) {
+        $data = fgetcsv($handle, 1000, ",");
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            array_push($ten, $data[9]);
+        }
+    }
 
     // Thay cairang1.csv thành file csv chứa dữ liệu địa giới (nodes) xuất ra từ QGis.
     if (($handle = fopen('cairang_nodes.csv', 'r')) !== FALSE) { // Check the resource is valid
@@ -54,7 +61,7 @@
 
                 insert_polygon($insert_text);
 
-                $insert_text = "INSERT INTO `diagioihanhchinh` (`IDPhuong`, `DiaGioi`, `TenPhuong`) VALUES (".($current_shape_id + 1).", ST_GeomFromText('POLYGON((".$data[2]." ".$data[3];
+                $insert_text = "INSERT INTO `diagioihanhchinh` (`IDPhuong`, `DiaGioi`, `TenPhuong`) VALUES (".$current_shape_id.", ST_GeomFromText('POLYGON((".$data[2]." ".$data[3];
             }
         }
         $insert_text.= "))'), '".$ten[$current_shape_id]."')";
