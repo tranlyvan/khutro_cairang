@@ -64,7 +64,7 @@
 ?>
 
 
-<div id="map" class="mt-1">
+<div id="map">
     <div class="btn-group-vertical float-left ml-5 mt-1 p-0" style="z-index: 1001"> <!-- Use 401 to be between map and controls -->
         <button type="buttons" title="Lấy vị trí hiện tại" 
         style="border: 1px solid grey;"
