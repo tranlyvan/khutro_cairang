@@ -37,8 +37,8 @@
 
         // Đọc tên quận huyện.
         $query = "SELECT d.TenPhuong, COUNT(k.id) sl_khutro 
-        FROM diagioihanhchinh d, khu_tro k 
-        WHERE d.TenPhuong = k.phuongxa 
+        FROM diagioihanhchinh d 
+        LEFT JOIN khu_tro k ON d.TenPhuong = k.phuongxa 
         GROUP BY d.TenPhuong";
 
         $result = mysqli_query($conn, $query);
