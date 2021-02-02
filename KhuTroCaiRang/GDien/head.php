@@ -98,7 +98,12 @@
         }
 
         div.leaflet-routing-container.leaflet-bar.leaflet-control {
-            margin-top: 140px;
+            margin-top: 60px;
+        }
+
+        #map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div.info.leaflet-control {
+            margin-top: 520px;
+            margin-right: 160px;
         }
     </style>
 
@@ -119,6 +124,7 @@
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.min.css">
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

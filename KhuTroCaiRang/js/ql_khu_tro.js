@@ -53,17 +53,22 @@ function show_md_update(ten, sonha, duong, phuong, id, lat, lng) {
 }
 
 // Xóa thông tin một phòng theo stt.
-function xoa_phong(stt){
+function xoa_phong(stt, id){
+
+    var r = confirm('Xóa phòng ' + stt);
+    if (r == false) {
+        return false;
+    }
     
     $.ajax({
         type: "POST",
         url: "/XuLy/xoa_phong.php",
-        data: {"stt": stt},
+        data: {"stt": id},
         dataType: 'JSON',
         success: function (response) {
             console.log(response);
             if (response.ok == 1){
-                $("#tr_" + stt).remove();
+                $("#tr_" + id).remove();
 
                 count = ($("#tb_phong tr").length - 1);
 
@@ -133,11 +138,11 @@ function show_md_phong(id, ten){
 
                 var len = response.length;
                 for(var i=0; i<len; i++){
-                    html_text += "<tr id='tr_"+ response[i].stt +"'><td>"+ response[i].stt +
+                    html_text += "<tr id='tr_"+ response[i].stt +"'><td class='align-middle'>"+ (i + 1) +
                     "</td><td>"+ response[i].ten_loai +
                     "</td><td>"+ response[i].trang_thai +
                     "</td><td>"+
-                    "<button class='btn btn-danger' onclick='xoa_phong(\""+ response[i].stt +"\");'>X</button></td></tr>";
+                    "<button class='btn btn-danger' onclick='xoa_phong(\""+ (i+1) +"\",\""+ response[i].stt +"\");'>X</button></td></tr>";
                 }
                 html_text += "</table>";
             }
@@ -326,7 +331,14 @@ function marker_add_map(e){
 }
 
 $(document).ready(function() {
-    $('#tb_data').DataTable();
+
+    // Đưa tb_data vào bảng thao tác của jquery datatable api. 
+    // Không cho phép tìm kiếm trên cột chỉ số 4 (cột thứ 5 - cột các button tao tác trên dòng)
+    $('#tb_data').dataTable( {
+        "columnDefs": [
+            { "searchable": false, "targets": 4 }
+        ]
+    } );
 
     map.on('click', function(e) {
         marker_update_map(e);

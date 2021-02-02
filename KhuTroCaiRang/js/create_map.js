@@ -4,7 +4,9 @@ var enable_searching = false;
 
 var mapOptions = {
     center: [10.00299572347174, 105.81870413527979],
-    zoom: default_zoom
+    zoom: default_zoom,
+    zoomDelta: 0.25,
+    zoomSnap: 0
 };
 
 var map = new L.map('map', mapOptions);
@@ -141,11 +143,12 @@ map.on('zoomend', function() {
     if (map.getZoom() > default_zoom){
         map.removeLayer(geojson);
         map.removeLayer(info);
-        if (!enable_searching)
+        if (!enable_searching){
             map.addLayer(layer_khu_tro);
-
-        $("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.info.legend.leaflet-control").hide();
-        $("#map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div").hide();
+            $("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.info.legend.leaflet-control").hide();
+            $("#map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div").hide();
+        }
+        
     }
     else {
         map.removeLayer(layer_khu_tro);

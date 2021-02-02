@@ -174,7 +174,7 @@
     <!-- Modal phong -->
     <div class="modal fade" id="md_phong" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width: 122%">
                 <div class="modal-header">
                     <h5 class="modal-title">Danh sách phòng</h5>
                     
@@ -183,21 +183,21 @@
                     </button>                    
                 </div>
                 
-                <span class="pl-3"><b></b></span>
-
+                
                 <div class="form-inline">
                     <table class="table">
                         <tr>
                             <td colspan="4">
-                                <div id="alert_them_phong" style="width: 80%" class="alert alert-danger alert-dismissible">
+                                <div id="alert_them_phong" style="width: 100%" class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <span></span>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="align-middle">
                                 <input type="hidden" id="id_tro">
+                                Thêm phòng mới
                             </td>
                             <td>
                                 <select class="form-control" id="sl_L">

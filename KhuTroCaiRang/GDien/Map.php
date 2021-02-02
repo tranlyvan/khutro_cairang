@@ -73,7 +73,7 @@
         </button>
     </div>
 
-    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 95px; width: 310px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
+    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 10px; width: 310px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
         <input type="text" id="txt_tim" class="form-control" placeholder="Tìm khu trọ" aria-label="Tìm khu trọ" aria-describedby="basic-addon2">
         <button type="buttons" id="btn_tim" class="btn btn-primary px-2" title="Tìm khu trọ theo tên trọ hoặc tên chủ trọ"  onclick="">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -115,11 +115,12 @@
                     shadowSize:   [0, 0], // size of the shadow
                     iconAnchor:   [18, 36], // point of the icon which will correspond to marker"s location
                     shadowAnchor: [4, 62],  // the same for the shadow
-                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                    popupAnchor:  [-3, -76], // point from which the popup should open relative to the iconAnchor
+                    tooltipAnchor: [0, -30], // top center
                 });
             
-                var marker = L.marker(['.$s[0].','.$s[1].'], {title : "'.$s[3].'", icon : myIcon});
-                marker.addTo(map);
+                var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon});
+                marker.bindTooltip("<h6><b>'.$s[3].'</b></h6>", { direction: "top" }).addTo(layer_khu_tro);
             ';
         }
 
@@ -133,11 +134,12 @@
                     shadowSize:   [0, 0], // size of the shadow
                     iconAnchor:   [18, 36], // point of the icon which will correspond to marker"s location
                     shadowAnchor: [4, 62],  // the same for the shadow
-                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                    popupAnchor:  [-3, -76], // point from which the popup should open relative to the iconAnchor
+                    tooltipAnchor: [0, -30], // top center
                 });
             
-                var marker = L.marker(['.$s[0].','.$s[1].'], {title : "'.$s[2].'", icon : myIcon});
-                marker.addTo(layer_khu_tro);
+                var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon});
+                marker.bindTooltip("<h6><b>'.$s[2].'</b></h6>", { direction: "top" }).addTo(layer_khu_tro);
             ';
         }
         
@@ -170,12 +172,13 @@
                     shadowSize:   [0, 0], // size of the shadow
                     iconAnchor:   [23, 60], // point of the icon which will correspond to marker"s location
                     shadowAnchor: [4, 50],  // the same for the shadow
-                    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+                    popupAnchor:  [-3, -76], // point from which the popup should open relative to the iconAnchor
+                    tooltipAnchor: [0, -50]
                 });
 
                 var title_search = (ktro[2] + ", Chủ trọ: "+ ktro[8] +"");
             
-                var marker = L.marker([ktro[0], ktro[1]], {title : title_search ,icon : myIcon}).on('click', function (e) { 
+                var marker = L.marker([ktro[0], ktro[1]], {icon : myIcon}).on('click', function (e) { 
                     
                     map.removeControl(R);
 
@@ -194,11 +197,11 @@
                                 shadowSize:   [0, 0], // size of the shadow
                                 iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
                                 shadowAnchor: [0, 0],  // the same for the shadow
-                                popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+                                popupAnchor:  [0, 0], // point from which the popup should open relative to the iconAnchor
+                                tooltipAnchor: [0, -30]
                             });
                             
-                            gps_marker = L.marker([latitude, longitude], { icon: gps_icon }).bindTooltip("<span style='color:red; font-weight: bold;'>Vị trí của bạn</span>", {
-                            });
+                            gps_marker = L.marker([latitude, longitude], { icon: gps_icon }).bindTooltip("<span style='color:red; font-weight: bold;'>Vị trí của bạn</span>", {direction: "top"});
                             gps_marker.addTo(map);
                             gps_marker.addTo(layer_routing);
                             
@@ -218,7 +221,7 @@
                     
                     
                 });
-                marker.addTo(layer_tim_kiem);
+                marker.bindTooltip("<h6><b>"+ title_search +"</b></h6>", { direction: "top" }).addTo(layer_tim_kiem);
             });
 
             layer_tim_kiem.addTo(map);
