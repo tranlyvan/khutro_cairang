@@ -73,7 +73,7 @@
         </button>
     </div>
 
-    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 10px; width: 450px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
+    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 10px; width: 280px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
         <input type="text" id="txt_tim" class="form-control" placeholder="Tìm khu trọ" aria-label="Tìm khu trọ" aria-describedby="basic-addon2">
         <button type="buttons" id="btn_tim" class="btn btn-primary px-2" title="Tìm khu trọ theo tên trọ hoặc tên chủ trọ"  onclick="">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -218,6 +218,7 @@
                                 language: 'de'
                             }).addTo(map);
                             map.fitBounds(layer_routing.getBounds());
+                            map.zoomOut();
                         });
                     }
                     
@@ -241,7 +242,7 @@
                 enable_searching = true;
                 map.removeLayer(layer_khu_tro);
                 map.removeLayer(layer_tim_kiem);
-                $('img[src$="/images/icons/gps.png"]').remove();
+                $('img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').remove();
                 map.removeControl(R);
 
                 key = $("#txt_tim").val().toLowerCase();
@@ -281,7 +282,7 @@
             $("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.info.legend.leaflet-control").show();
             $("#map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div").show();
 
-            $('img[src$="/images/icons/gps.png"]').remove();
+            $('img.leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive').remove();
 
             map.removeControl(R);
         }
