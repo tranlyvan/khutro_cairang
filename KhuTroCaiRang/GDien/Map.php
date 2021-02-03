@@ -73,7 +73,7 @@
         </button>
     </div>
 
-    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 10px; width: 310px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
+    <div class="btn-group float-right p-0" style="z-index: 1001; margin-top: 10px; width: 450px; margin-right: 10px"> <!-- Use 401 to be between map and controls -->
         <input type="text" id="txt_tim" class="form-control" placeholder="Tìm khu trọ" aria-label="Tìm khu trọ" aria-describedby="basic-addon2">
         <button type="buttons" id="btn_tim" class="btn btn-primary px-2" title="Tìm khu trọ theo tên trọ hoặc tên chủ trọ"  onclick="">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,9 @@
                     tooltipAnchor: [0, -30], // top center
                 });
             
-                var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon});
+                var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon}).on("click", function (e) {
+                    alert(map.getZoom());
+                });
                 marker.bindTooltip("<h6><b>'.$s[2].'</b></h6>", { direction: "top" }).addTo(layer_khu_tro);
             ';
         }
@@ -226,6 +228,7 @@
 
             layer_tim_kiem.addTo(map);
             map.fitBounds(layer_tim_kiem.getBounds());
+
             map.removeLayer(geojson);
             $("#map > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div.info.legend.leaflet-control").hide();
             $("#map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div").hide();
@@ -238,6 +241,8 @@
                 enable_searching = true;
                 map.removeLayer(layer_khu_tro);
                 map.removeLayer(layer_tim_kiem);
+                $('img[src$="/images/icons/gps.png"]').remove();
+                map.removeControl(R);
 
                 key = $("#txt_tim").val().toLowerCase();
 
@@ -268,7 +273,7 @@
             enable_searching = false;
             $("#txt_tim").val("");
 
-            map.setZoom(default_zoom);
+            map.setView([10.00299572347174, 105.81870413527979], default_zoom);
 
             map.removeLayer(layer_tim_kiem);
             map.removeLayer(layer_routing);

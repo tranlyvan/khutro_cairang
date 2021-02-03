@@ -5,8 +5,8 @@ var enable_searching = false;
 var mapOptions = {
     center: [10.00299572347174, 105.81870413527979],
     zoom: default_zoom,
-    zoomDelta: 0.25,
-    zoomSnap: 0
+    zoomAnimation: true,
+    zoomSnap: 0.25
 };
 
 var map = new L.map('map', mapOptions);

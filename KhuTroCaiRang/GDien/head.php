@@ -102,7 +102,7 @@
         }
 
         #map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div.info.leaflet-control {
-            margin-top: 520px;
+            margin-top: 100%;
             margin-right: 160px;
         }
     </style>
