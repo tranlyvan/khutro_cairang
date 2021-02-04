@@ -52,51 +52,6 @@
             opacity: 0.7;
         }
 
-        .modal.left .modal-dialog,
-        .modal.right .modal-dialog {
-            position: fixed;
-            margin: auto;
-            width: 320px;
-            height: 100%;
-            -webkit-transform: translate3d(0%, 0, 0);
-                -ms-transform: translate3d(0%, 0, 0);
-                -o-transform: translate3d(0%, 0, 0);
-                    transform: translate3d(0%, 0, 0);
-        }
-
-        .modal.left .modal-content,
-        .modal.right .modal-content {
-            height: 100%;
-            overflow-y: auto;
-        }
-        
-        .modal.left .modal-body,
-        .modal.right .modal-body {
-            padding: 15px 15px 80px;
-        }
-
-        /*Right*/
-        .modal.right.fade .modal-dialog {
-            right: 10px;
-            -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-            -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-                -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-                    transition: opacity 0.3s linear, right 0.3s ease-out;
-        }
-        
-        .modal.right.fade.in .modal-dialog {
-            right: 0;
-        }
-
-        @keyframes falling { 
-            0% {width: 10px;}
-            100%{width: 32px;}
-        }
-
-        .blinking {
-            animation: falling 0.5s;
-        }
-
         div.leaflet-routing-container.leaflet-bar.leaflet-control {
             margin-top: 60px;
         }
@@ -104,6 +59,14 @@
         #map > div.leaflet-control-container > div.leaflet-top.leaflet-right > div.info.leaflet-control {
             margin-top: 60px;
             margin-right: 10px;
+        }
+
+        #md_ktro > div {
+            position: fixed;
+            right: 0;
+            top: 250px;
+            width: 400px;
+            -webkit-transform: translate3d(0, -40%, 0);
         }
     </style>
 
@@ -138,3 +101,29 @@
     
 </head>
 <body>
+
+<?php
+
+    // Tạo chuổi địa chỉ.
+    function make_address($number, $street, $ward, $district, $province){
+        $address = "";
+
+        if ($number != "")
+            $address .= ($number . ", ");
+
+        if ($street != "")
+            $address .= ($street . ", ");
+
+        if ($ward != "")
+            $address .= ($ward . ", ");
+
+        if ($district != "")
+            $address .= ($district . ", ");
+
+        if ($province != "")
+            $address .= ($province);
+
+        return $address;
+    }
+
+?>

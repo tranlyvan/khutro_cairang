@@ -7,28 +7,6 @@
     include "./head.php";
     include "./Menu.php";
 
-    // Tạo chuổi địa chỉ.
-    function make_address($number, $street, $ward, $district, $province){
-        $address = "";
-
-        if ($number != "")
-            $address .= ($number . ", ");
-
-        if ($street != "")
-            $address .= ($street . ", ");
-
-        if ($ward != "")
-            $address .= ($ward . ", ");
-
-        if ($district != "")
-            $address .= ($district . ", ");
-
-        if ($province != "")
-            $address .= ($province);
-
-        return $address;
-    }
-
     $conn = mysqli_connect("localhost", "root", "", "ql_khutro_cairang");
 
     if (!$conn) {//loi ket noi csdl

@@ -179,10 +179,12 @@ function vtri_htai(){
                 shadowSize:   [0, 0], // size of the shadow
                 iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
                 shadowAnchor: [0, 0],  // the same for the shadow
-                popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+                popupAnchor:  [0, 0], // point from which the popup should open relative to the iconAnchor
+                tooltipAnchor: [0, -30], // top center
             });
             
             gps_marker = L.marker([latitude, longitude], { icon: gps_icon }).bindTooltip("<span style='color:red; font-weight: bold;'>Vị trí của bạn</span>", {
+                direction: "top"
             });
             gps_marker.addTo(map);
             map.flyTo([latitude, longitude], 18);

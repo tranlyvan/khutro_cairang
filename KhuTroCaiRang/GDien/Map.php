@@ -11,7 +11,7 @@
         mysqli_set_charset($conn,"utf8");// đọc và ghi dữ liệu dạng utf8
 
         // Đọc thông tin khu trọ và chủ trọ tương ứng.
-        $query = 'SELECT ten, so_nha, tenduong, phuongxa, quanhuyen, tinh, c.hoten, c.sdt, k.id, k.lat, k.lng
+        $query = 'SELECT ten, so_nha, tenduong, phuongxa, quanhuyen, tinh, c.hoten, c.gioitinh, c.sdt, k.id, k.lat, k.lng
         FROM khu_tro k, chu_tro c 
         WHERE k.cmnd = c.cmnd';
 
@@ -30,7 +30,8 @@
                 $row["tinh"], 
                 $row["hoten"], 
                 $row["sdt"],
-                $row["id"]
+                $row["id"],
+                ($row["gioitinh"] == "W" ? "Chị." : "Anh.")
             ];
         }
 
@@ -63,6 +64,51 @@
     }
 ?>
 
+<!-- Modal -->
+<div class="modal fade" id="md_ktro" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                        <h3 class="modal-title"></h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+            <div class="modal-body" style="height: 500px; overflow-y: scroll;">
+                    <b>Chủ trọ: </b> <span id="info_chutro"></span><br>
+                    <b>Số điện thoại: </b> <span id="info_sdt"></span><br>
+                    <b>Địa chỉ: </b> <span id="info_diachi"></span><br>
+                    <b>Khoảng cách đến các trường:</b>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Trường</th>
+                                <th>Khoảng cách</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb_kcach">
+                        </tbody>
+                    </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#md_ktro').on('show.bs.modal', event => {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        // Use above variables to manipulate the DOM
+        
+
+
+
+    });
+</script>
+
 
 <div id="map">
     <div class="btn-group-vertical float-left ml-5 mt-1 p-0" style="z-index: 1001"> <!-- Use 401 to be between map and controls -->
@@ -89,6 +135,8 @@
     </div>
 </div>
 
+
+
 <script src="../js/cairang.js"></script>
 
 <script>
@@ -98,6 +146,33 @@
             echo "polygonData['features'][".$i."]['properties']['density'] = ".$qh[1].";".PHP_EOL;
         }
     ?>
+
+    function show_info_ktro(id, ten, ten_chu_tro, gioitinh, sdt, diachi) {
+
+        $("#md_ktro > div > div > div.modal-header > h3").text(ten);
+        $("#info_chutro").text(gioitinh + " " + ten_chu_tro);
+        $("#info_sdt").text(sdt);
+        $("#info_diachi").text(diachi);
+
+        $.ajax({
+            type: "POST",
+            url: "/XuLy/get_kcach_info.php",
+            data: {
+                "id": id
+            },
+            dataType: 'JSON',
+            success: function (response) {
+
+                response.forEach(function(entry) {
+                
+
+                    $("#tb_kcach").append("<tr><td>"+ entry["ten"] +"</td><td>"+ entry["kcach"] +"(km)</td></tr>");
+                });
+            }
+        });
+
+        $("#md_ktro").modal("show");
+    }
 </script>
 
 <script src="../js/create_map.js"></script>
@@ -139,7 +214,8 @@
                 });
             
                 var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon}).on("click", function (e) {
-                    alert(map.getZoom());
+                    show_info_ktro("'.$s[10].'","'.$s[2].'","'.$s[8].'","'.$s[11].'","'.$s[9].'",
+                    "'.make_address($s[3], $s[4], $s[5], $s[6], $s[7]).'");                    
                 });
                 marker.bindTooltip("<h6><b>'.$s[2].'</b></h6>", { direction: "top" }).addTo(layer_khu_tro);
             ';
