@@ -78,7 +78,7 @@
                     <b>Chủ trọ: </b> <span id="info_chutro"></span><br>
                     <b>Số điện thoại: </b> <span id="info_sdt"></span><br>
                     <b>Địa chỉ: </b> <span id="info_diachi"></span><br>
-                    <b>Khoảng cách đến các trường:</b>
+                    <b>Khoảng cách đến các trường theo thứ tự tăng dần:</b>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

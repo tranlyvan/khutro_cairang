@@ -6,7 +6,8 @@
     // sql to delete a record
     $query = "SELECT t.ten, kc.kcach 
     FROM khu_tro k, kcach kc, truong t 
-    WHERE k.id = '".$_POST['id']."' AND k.id = kc.id_tro AND t.id = kc.id_truong";
+    WHERE k.id = '".$_POST['id']."' AND k.id = kc.id_tro AND t.id = kc.id_truong
+    ORDER BY kcach ASC";
 
     $result = mysqli_query($conn, $query);
 
