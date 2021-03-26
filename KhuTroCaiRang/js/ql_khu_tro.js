@@ -231,8 +231,6 @@ function kiemtra_vitri(address, add_new=false){
         var T = address.substring(address.lastIndexOf("Phường") + 7);
         phuong = T.substring(0, T.indexOf(","));
     }
-    console.log(phuong);
-    console.log($("#txt_phuong").val());
 
     var quan = "";
     if (address.lastIndexOf("Quận") != -1){
@@ -297,6 +295,8 @@ function marker_add_map(e){
         marker.bindPopup(myJson.address.Match_addr).openPopup();
         kt = kiemtra_vitri(myJson.address.LongLabel, true);
 
+        console.log("kt = " + kt);
+
         if (kt == 0){
             $("#lb_vt_a").html("Vị tri: <b style='color: green;'>"+ myJson.address.LongLabel +"</b>");
             $("#btn_add").prop('disabled', false);
@@ -304,8 +304,20 @@ function marker_add_map(e){
 
             console.log(myJson.address);
 
-            $("#txt_sn_a").val(myJson.address.AddNum);
-            $("#txt_d_a").val(myJson.address.Address);
+            sonha_duong = myJson.address.ShortLabel.split(" ");
+
+            if (sonha_duong.length == 2) {
+                $("#txt_sn_a").val(sonha_duong[0]);
+                $("#txt_d_a").val(sonha_duong[1]);
+            }
+
+            if (sonha_duong.length == 1) {
+                $("#txt_sn_a").val("");
+                $("#txt_d_a").val(sonha_duong);
+            }
+
+            // $("#txt_sn_a").val(myJson.address.AddNum);
+            // $("#txt_d_a").val(myJson.address.Address.split(" ")[1]);
 
             $("#txt_q_a").val(myJson.address.District.replace("Huyện ", ""));
             $("#txt_q_a").val(myJson.address.District.replace("Quận ", ""));
