@@ -1,4 +1,4 @@
-# khutro_cairang
+# Quản lý khu trọ Cái Răng, TP Cần Thơ
 Bài tập lớn môn Hệ thống thông tin địa lý.
 Hệ thống GIS hỗ trợ quản lý khu trọ tại quận Cái Răng, Cần Thơ.
 
