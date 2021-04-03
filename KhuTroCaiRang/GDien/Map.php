@@ -11,9 +11,10 @@
         mysqli_set_charset($conn,"utf8");// đọc và ghi dữ liệu dạng utf8
 
         // Đọc thông tin khu trọ và chủ trọ tương ứng.
-        $query = 'SELECT ten, so_nha, tenduong, phuongxa, quanhuyen, tinh, c.hoten, c.gioitinh, c.sdt, k.id, k.lat, k.lng
-        FROM khu_tro k, chu_tro c 
-        WHERE k.cmnd = c.cmnd';
+        $query = 'SELECT ten, so_nha, tenduong, phuongxa, quanhuyen, tinh, c.hoten, c.gioitinh, c.sdt, k.id, k.lat, k.lng, COUNT(p.trang_thai) AS controng 
+        FROM khu_tro k, chu_tro c, phong p
+        WHERE k.cmnd = c.cmnd
+        AND k.id = p.id_khu_tro AND p.trang_thai = "0" GROUP BY ten, so_nha, tenduong, phuongxa, quanhuyen, tinh, c.hoten, c.gioitinh, c.sdt, k.id, k.lat, k.lng';
 
         $result = mysqli_query($conn, $query);
 
@@ -31,7 +32,8 @@
                 $row["hoten"], 
                 $row["sdt"],
                 $row["id"],
-                ($row["gioitinh"] == "W" ? "Chị." : "Anh.")
+                ($row["gioitinh"] == "W" ? "Chị." : "Anh."),
+                $row["controng"]
             ];
         }
 
@@ -70,6 +72,7 @@
         <div class="modal-content">
                 <div class="modal-header">
                         <h3 class="modal-title"></h3>
+                        
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -78,6 +81,7 @@
                     <b>Chủ trọ: </b> <span id="info_chutro"></span><br>
                     <b>Số điện thoại: </b> <span id="info_sdt"></span><br>
                     <b>Địa chỉ: </b> <span id="info_diachi"></span><br>
+                    <b>Số phòng trống: </b> <span id="controng"></span><br>
                     <b>Khoảng cách đến các trường theo thứ tự tăng dần:</b>
                     <table class="table table-bordered">
                         <thead>
@@ -147,11 +151,13 @@
         }
     ?>
 
-    function show_info_ktro(id, ten, ten_chu_tro, gioitinh, sdt, diachi) {
+    function show_info_ktro(id, ten, ten_chu_tro, gioitinh, sdt, diachi, controng) {
 
         $("#md_ktro > div > div > div.modal-header > h3").text(ten);
+        $("#controng").text(controng + " (phòng)");
         $("#info_chutro").text(gioitinh + " " + ten_chu_tro);
         $("#info_sdt").text(sdt);
+        
         $("#info_diachi").text(diachi);
 
         $.ajax({
@@ -215,7 +221,7 @@
             
                 var marker = L.marker(['.$s[0].','.$s[1].'], {icon : myIcon}).on("click", function (e) {
                     show_info_ktro("'.$s[10].'","'.$s[2].'","'.$s[8].'","'.$s[11].'","'.$s[9].'",
-                    "'.make_address($s[3], $s[4], $s[5], $s[6], $s[7]).'");                    
+                    "'.make_address($s[3], $s[4], $s[5], $s[6], $s[7]).'","'.$s[12].'");                    
                 });
                 marker.bindTooltip("<h6><b>'.$s[2].'</b></h6>", { direction: "top" }).addTo(layer_khu_tro);
             ';

@@ -8,8 +8,22 @@
 
     try {
         if ($conn->query($sql) === TRUE) {
-            header("Location: /GDien/ql_loai_phong.php?mess=Xóa thành công");
-            exit();
+
+            $sql = "DELETE FROM phong WHERE maloai='".$_GET['maloai']."'";
+
+
+            if ($conn->query($sql) === TRUE) {
+
+                reset_id($conn, "phong");
+
+                header("Location: /GDien/ql_loai_phong.php?mess=Xóa thành công");
+                exit();
+            }
+            else{
+                header("Location: /GDien/ql_loai_phong.php?mess=Xóa thất bại, thử lại sau");
+                exit();
+            }
+
         } else {
             header("Location: /GDien/ql_loai_phong.php?mess=Xóa thất bại, thử lại sau");
             exit();
