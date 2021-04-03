@@ -304,20 +304,11 @@ function marker_add_map(e){
 
             console.log(myJson.address);
 
-            sonha_duong = myJson.address.ShortLabel.split(" ");
-
-            if (sonha_duong.length == 2) {
-                $("#txt_sn_a").val(sonha_duong[0]);
-                $("#txt_d_a").val(sonha_duong[1]);
-            }
-
-            if (sonha_duong.length == 1) {
-                $("#txt_sn_a").val("");
-                $("#txt_d_a").val(sonha_duong);
-            }
-
-            // $("#txt_sn_a").val(myJson.address.AddNum);
-            // $("#txt_d_a").val(myJson.address.Address.split(" ")[1]);
+            $("#txt_sn_a").val(myJson.address.AddNum);
+            $("#txt_d_a").val(
+                myJson.address.Address.replace("Đường", "")
+                .replace(myJson.address.AddNum, "").trim()
+            );
 
             $("#txt_q_a").val(myJson.address.District.replace("Huyện ", ""));
             $("#txt_q_a").val(myJson.address.District.replace("Quận ", ""));
